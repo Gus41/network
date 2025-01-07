@@ -10,7 +10,6 @@ class RegisterView(CreateAPIView):
     
     def create(self, request: HttpRequest, *args, **kwargs):
         
-        
         serializer = self.get_serializer(data= request.data)
         serializer.is_valid(raise_exception=True)
         
@@ -28,6 +27,7 @@ class RegisterView(CreateAPIView):
             status=status.HTTP_201_CREATED,
             headers=headers
         )
+        
         
         
     
