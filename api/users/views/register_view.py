@@ -24,7 +24,7 @@ class RegisterView(CreateAPIView):
         
         return Response(
             {'token': token.key,
-             'Message': 'Request created to team'},
+             'Message': 'User created'},
             status=status.HTTP_201_CREATED,
             headers=headers
         )

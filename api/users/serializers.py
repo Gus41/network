@@ -7,9 +7,17 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'username', 'email', 'password','first_name','last_name']
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("Email already in use")
         return value
+    
+    def create(self, validated_data):
+        
+        user = User(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        
+        return user
