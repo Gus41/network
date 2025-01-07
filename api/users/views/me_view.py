@@ -39,12 +39,10 @@ class MeView(APIView):
             if User.objects.filter(username=username).exists():
                 return Response(
                     {"detail": "Username already in use"},
-                    status=status.HTTP_400_BAD_REQUEST  # Usar o código 400, pois é um erro de entrada de dados
+                    status=status.HTTP_400_BAD_REQUEST   
                 )
             user.username = username
 
-        
-        # Salve as alterações
         user.save()
         
         return Response(
