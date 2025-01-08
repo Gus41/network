@@ -43,6 +43,13 @@ class PostView(ModelViewSet):
         serializer = CommentSerializer(data=data)
         if serializer.is_valid():
             serializer.save(post=post, author=request.user)
+             #create an notification
+            Notification.objects.create(
+                recipient=post.author,
+                type="Comment",
+                message=f'{request.user} commented your post!',
+                
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
