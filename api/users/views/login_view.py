@@ -21,9 +21,7 @@ class LoginView(APIView):
 
         user = get_object_or_404(User, username=username)
         
-        
-        print(user)
-        print(password)
+
         if not user.check_password(password):
             return Response(
                 {"detail": "Invalid credentials."},
