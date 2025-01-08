@@ -56,11 +56,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', 
-    'https://nextjs-boilerplate-gus41s-projects.vercel.app/'
+    'https://nextjs-boilerplate-gus41s-projects.vercel.app',
+    'http://localhost:3000',  # Para desenvolvimento local
 ]
+
 
 
 ROOT_URLCONF = 'api.urls'
