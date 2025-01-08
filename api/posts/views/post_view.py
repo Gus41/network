@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import HttpRequest
 from rest_framework.decorators import action
-
+from notifications.models import Notification
 
 class PostView(ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly,]
@@ -23,6 +23,13 @@ class PostView(ModelViewSet):
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
         
         post.likes.add(request.user)
+        #create an notification
+        Notification.objects.create(
+            recipient=post.author,
+            type="Like",
+            message=f'{request.user} liked your post!',
+            
+        )
         return Response({"detail": "Post liked successfully."}, status=status.HTTP_200_OK)
     
     

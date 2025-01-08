@@ -31,6 +31,9 @@ class FollowView(ModelViewSet):
                 "You are alredy following this user",
                 status=status.HTTP_400_BAD_REQUEST
             )
+            
+            
+            #create an notification
     
         return super().create(request, *args, **kwargs)
 
