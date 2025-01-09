@@ -12,10 +12,10 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    
+    author = UserSerializer(read_only=True)
     likes = UserSerializer(many=True, read_only=True)
     comments = CommentSerializer(many=True,read_only=True)
     class Meta:
         model = Post
-        fields = ["id","title","content","created_at","is_public","likes","comments"]
+        fields = ["id","title","content","created_at","author","is_public","likes","comments"]
         read_only_fields = ["created_at","likes","id","comments"]

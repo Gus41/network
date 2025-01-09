@@ -20,7 +20,8 @@ class PostView(ModelViewSet):
     def like(self, request: HttpRequest, pk=None):
         post = self.get_object()
         if request.user in post.likes.all():
-            return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
+            post.likes.remove(request.user)
+            return Response({"detail": "Post unliked successfully."}, status=status.HTTP_200_OK)
         
         post.likes.add(request.user)
         #create an notification
@@ -50,7 +51,9 @@ class PostView(ModelViewSet):
                 message=f'{request.user} commented your post!',
                 
             )
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            posts = Post.objects.filter(is_public=True)
+            data = PostSerializer(posts, many=True)
+            return Response(data.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
